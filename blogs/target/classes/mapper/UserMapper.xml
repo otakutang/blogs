@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blogs.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.blogs.pojo.po.user.UserPo">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="account" column="account" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="createName" column="create_name" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateName" column="update_name" jdbcType="VARCHAR"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="column">
+        account,password,
+               name,phone,birthday,
+               create_name,create_time,update_name,
+               update_time
+    </sql>
+
+    <sql id="Base_Column_List">
+        select id,account,password,
+        name,phone,birthday,
+        create_name,create_time,update_name,
+        update_time from t_user
+    </sql>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(<include refid="column"/>)
+        value(
+            #{account},
+            #{password},
+            #{name},
+            #{phone},
+            #{birthday},
+            #{createName},
+            #{createTime},
+            #{updateName},
+            #{updateTime}
+        )
+    </insert>
+    <select id="count" resultType="java.lang.Integer" parameterType="com.example.blogs.pojo.dto.request.UserRequestDto">
+        select count(*)
+        from t_user
+        <where>
+            <if test="id!=null">
+                and id=#{id}
+            </if>
+            <if test="account!=null">
+                and account=#{account}
+            </if>
+            <if test="password!=null">
+                and password=#{password}
+            </if>
+            <if test="name!=null">
+                and name=#{name}
+            </if>
+            <if test="phone!=null">
+                and phone=#{phone}
+            </if>
+            <if test="birthday!=null">
+                and birthday=#{birthday}
+            </if>
+            <if test="createName!=null">
+                and create_name=#{createName}
+            </if>
+            <if test="createTime!=null">
+                and create_time=#{createTime}
+            </if>
+            <if test="updateName!=null">
+                and update_name=#{updateName}
+            </if>
+            <if test="updateTime!=null">
+                and update_time=#{updateTime}
+            </if>
+        </where>
+    </select>
+</mapper>

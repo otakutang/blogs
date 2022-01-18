@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: blogs-server
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/blogs?characterEncoding=UTF-8&&useSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true
+    username: root
+    password: root
+    type: com.mysql.cj.jdbc.MysqlDataSource
+    ##redis连接配置
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    database: 0
+    password:
+    jedis:
+      pool:
+        max-active: 8
+    timeout: 5000ms
+##解决引入Swagger3后启动报错，异常类型：Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+server:
+  port: 10086
+
+register-interval-time: 10000
+
+##mybatis sql 日志
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+
+
